@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keliling Jogja - Booking Wisata & Sewa Mobil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #1a1a1a;
+            background: #f7f9fc;
+        }
+
+        /* Header */
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0064D2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #687176;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: #0064D2;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-login {
+            color: #0064D2;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+        }
+
+        .btn-primary {
+            background: #0064D2;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #0052ad;
+        }
+
+        /* Hero Search */
+        .hero {
+            background: linear-gradient(135deg, #0064D2 0%, #00b4d8 100%);
+            color: white;
+            padding: 4rem 1.5rem;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .search-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            color: #687176;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .tab.active {
+            color: #0064D2;
+            border-bottom-color: #0064D2;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr 1fr;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            color: #687176;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select {
+            padding: 0.9rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #0064D2;
+        }
+
+        .btn-search {
+            background: #FF5E1F;
+            color: white;
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .btn-search:hover {
+            background: #e54d0f;
+        }
+
+        /* Categories */
+        .categories {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .category-card h3 {
+            font-size: 1rem;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+
+        .category-card p {
+            font-size: 0.85rem;
+            color: #687176;
+        }
+
+        /* Product Cards */
+        .products {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            background: #FF5E1F;
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 1.25rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .product-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-tag {
+            background: #f0f7ff;
+            color: #0064D2;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FF5E1F;
+        }
+
+        .price-label {
+            font-size: 0.8rem;
+            color: #687176;
+        }
+
+        .btn-book {
+            background: #0064D2;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* Destinations */
+        .destinations {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .dest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .dest-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .dest-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .dest-image {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .dest-info {
+            padding: 1.25rem;
+        }
+
+        .dest-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .dest-list {
+            list-style: none;
+            color: #687176;
+            font-size: 0.9rem;
+        }
+
+        .dest-list li {
+            padding: 0.3rem 0;
+        }
+
+        .dest-list li:before {
+            content: "• ";
+            color: #0064D2;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Promo Banner */
+        .promo {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .promo-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .promo h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .promo p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn-promo {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 1.5rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #b0b0b0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .search-tabs {
+                overflow-x: auto;
+            }
+
+            .header-actions {
+                gap: 0.5rem;
+            }
+        }
+
+        .filter-bar {
+            background: white;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid #e0e0e0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            color: #687176;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            border-color: #0064D2;
+            color: #0064D2;
+            background: #f0f7ff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                🏝️ Keliling Jogja
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#mobil">Sewa Mobil</a></li>
+                    <li><a href="#paket">Paket Wisata</a></li>
+                    <li><a href="#destinasi">Destinasi</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="https://wa.me/6285713011806" class="btn-primary">Hubungi Kami</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Search -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Jelajahi Keindahan Yogyakarta</h1>
+            <p>Booking sewa mobil dan paket wisata terbaik dengan harga terjangkau</p>
+            
+            <div class="search-box">
+                <div class="search-tabs">
+                    <div class="tab active">🚗 Sewa Mobil</div>
+                    <div class="tab">🎫 Paket Wisata</div>
+                    <div class="tab">🚐 Shuttle Airport</div>
+                </div>
+                
+                <div class="search-form">
+                    <div class="form-group">
+                        <label>Jenis Mobil</label>
+                        <select>
+                            <option>Pilih Jenis Mobil</option>
+                            <option>Toyota Avanza</option>
+                            <option>Innova Reborn</option>
+                            <option>Toyota Hiace</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Sewa</label>
+                        <input type="date" value="2024-11-08">
+                    </div>
+                    <div class="form-group">
+                        <label>Durasi</label>
+                        <select>
+                            <option>1 Hari</option>
+                            <option>2 Hari</option>
+                            <option>3 Hari</option>
+                            <option>Custom</option>
+                        </select>
+                    </div>
+                    <button class="btn-search">Cari</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <h2 class="section-title">Kategori Wisata Populer</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-icon">🏛️</div>
+                <h3>Candi & Sejarah</h3>
+                <p>15+ destinasi</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">🏖️</div>
+                <h3>Pantai</h3>
+                <p>20+ pantai</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">⛰️</div>
+                <h3>Gunung & Alam</h3>
+                <p>12+ lokasi</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">🎨</div>
+                <h3>Seni & Budaya</h3>
+                <p>8+ tempat</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">🍽️</div>
+                <h3>Kuliner</h3>
+                <p>25+ spot</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon">📸</div>
+                <h3>Instagramable</h3>
+                <p>18+ spot</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sewa Mobil -->
+    <section class="products" id="mobil">
+        <h2 class="section-title">🚗 Pilihan Sewa Mobil</h2>
+        
+        <div class="filter-bar">
+            <span style="font-weight: 600; color: #687176;">Filter:</span>
+            <button class="filter-btn active">Semua</button>
+            <button class="filter-btn">Hemat</button>
+            <button class="filter-btn">Keluarga</button>
+            <button class="filter-btn">Rombongan</button>
+        </div>
+
+        <div class="product-grid">
+            <!-- Avanza -->
+            <div class="product-card">
+                <div class="product-image">
+                    🚗
+                    <span class="badge">Best Seller</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Toyota Avanza</h3>
+                    <div class="product-features">
+                        <span class="feature-tag">👥 5 Kursi</span>
+                        <span class="feature-tag">❄️ AC</span>
+                        <span class="feature-tag">🎒 Bagasi</span>
+                    </div>
+                    <div class="product-price">
+                        <div>
+                            <div class="price">Rp 500K</div>
+                            <div class="price-label">per hari</div>
+                        </div>
+                        <a href="https://wa.me/6285713011806?text=Halo,%20saya%20ingin%20booking%20Toyota%20Avanza" class="btn-book">Book</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Innova -->
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    🚙
+                    <span class="badge">Premium</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Innova Reborn</h3>
+                    <div class="product-features">
+                        <span class="feature-tag">👥 6 Kursi</span>
+                        <span class="feature-tag">❄️ AC</span>
+                        <span class="feature-tag">⭐ Mewah</span>
+                    </div>
+                    <div class="product-price">
+                        <div>
+                            <div class="price">Rp 800K</div>
+                            <div class="price-label">per hari</div>
+                        </div>
+                        <a href="https://wa.me/6285713011806?text=Halo,%20saya%20ingin%20booking%20Innova%20Reborn" class="btn-book">Book</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hiace -->
+            <div class="product-card">
+                <div class="product-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    🚐
+                    <span class="badge">Rombongan</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Toyota Hiace</h3>
+                    <div class="product-features">
+                        <span class="feature-tag">👥 12 Kursi</span>
+                        <span class="feature-tag">❄️ AC</span>
+                        <span class="feature-tag">🧳 Luas</span>
+                    </div>
+                    <div class="product-price">
+                        <div>
+                            <div class="price">Rp 1.15Jt</div>
+                            <div class="price-label">per hari</div>
+                        </div>
+                        <a href="https://wa.me/6285713011806?text=Halo,%20saya%20ingin%20booking%20Toyota%20Hiace" class="btn-book">Book</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section class="promo">
+        <div class="promo-content">
+            <h2>✨ Paket Wisata Custom Tersedia!</h2>
+            <p>Rencanakan liburan impian Anda bersama kami. Dapatkan penawaran spesial untuk booking hari ini!</p>
+            <a href="https://wa.me/6285713011806?text=Halo,%20saya%20ingin%20request%20paket%20custom" class="btn-promo">Request Trip Custom</a>
+        </div>
+    </section>
+
+    <!-- Destinations -->
+    <section class="destinations" id="destinasi">
+        <h2 class="section-title">🗺️ Destinasi Wisata Premium</h2>
+        
+        <div class="dest-grid">
+            <!-- Sleman -->
+            <div class="dest-card">
+                <div class="dest-image">🏔️</div>
+                <div class="dest-info">
+                    <h3 class="dest-title">Kabupaten Sleman</h3>
+                    <ul class="dest-list">
+                        <li>Candi Prambanan</li>
+                        <li>Candi Ijo</li>
+                        <li>Kalibiru</li>
+                        <li>Kaliurang</li>
+                        <li>Museum Ullen Sentalu</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bantul -->
+            <div class="dest-card">
+                <div class="dest-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">🏖️</div>
+                <div class="dest-info">
+                    <h3 class="dest-title">Kabupaten Bantul</h3>
+                    <ul class="dest-list">
+                        <li>HeHa Sky View</li>
+                        <li>Pantai Parangtritis</li>
+                        <li>Pantai Timang</li>
+                        <li>Gumuk Pasir</li>
+                        <li>Tebing Breksi</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Gunung Kidul -->
+            <div class="dest-card">
+                <div class="dest-image" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">⛰️</div>
+                <div class="dest-info">
+                    <h3 class="dest-title">Gunung Kidul</h3>
+                    <ul class="dest-list">
+                        <li>Pantai Indrayanti</li>
+                        <li>Pantai Wediombo</li>
+                        <li>Goa Pindul</li>
+                        <li>Bukit Panguk</li>
+                        <li>Pantai Timang</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Kulon Progo -->
+            <div class="dest-card">
+                <div class="dest-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">🌊</div>
+                <div class="dest-info">
+                    <h3 class="dest-title">Kulon Progo</h3>
+                    <ul class="dest-list">
+                        <li>Waduk Sermo</li>
+                        <li>Kalibiru</li>
+                        <li>Goa Kiskendo</li>
+                        <li>Pantai Glagah</li>
+                        <li>Sungai Oya (Rafting)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Kota Jogja -->
+            <div class="dest-card">
+                <div class="dest-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">🏛️</div>
+                <div class="dest-info">
+                    <h3 class="dest-title">Kota Yogyakarta</h3>
+                    <ul class="dest-list">
+                        <li>Keraton Yogyakarta</li>
+                        <li>Taman Sari</li>
+                        <li>Malioboro</li>
+                        <li>Alun-Alun Kidul</li>
+                        <li>Museum Sonobudoyo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Magelang -->
+            <div class="dest-card">
+                <div class="dest-image" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">🛕</div>
+                <div class="dest-info">
+                    <h3 class="dest-title">Kabupaten Magelang</h3>
+                    <ul class="dest-list">
+                        <li>Candi Borobudur</li>
+                        <li>Punthuk Setumbu</li>
+                        <li>Svargabumi</li>
+                        <li>Ketep Pass</li>
+                        <li>Gereja Ayam</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Keliling Jogja</h3>
+                <p style="color: #b0b0b0; line-height: 1.6;">
+                    Layanan sewa mobil dan paket wisata terpercaya di Yogyakarta. Berpengalaman melayani ribuan wisatawan.
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Layanan</h3>
+                <ul>
+                    <li><a href="#mobil">Sewa Mobil</a></li>
+                    <li><a href="#paket">Paket Wisata</a></li>
+                    <li><a href="#">Shuttle Airport</a></li>
+                    <li><a href="#">Custom Trip</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Perusahaan</h3>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Testimoni</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    
